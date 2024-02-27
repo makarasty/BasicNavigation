@@ -1,0 +1,59 @@
+<!-- Сторінка предмету -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Предмет</title>
+	<link rel="stylesheet" href="styles/index.css">
+	<script src="javascript/globals.js"></script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			const params = new URLSearchParams(window.location.search);
+
+			const subjectHash = params.get('subject') || undefined
+
+			const subjectElement = document.getElementById("subject")
+			const teacherElement = document.getElementById("teacher")
+
+			function getNormalizedSubj(subjHash) {
+				const subj = subjects[subjHash]
+
+				if (!subj) return undefined
+
+				const { shortSubjName, fullSubjName, teacherHash } = subj
+
+				const { teacherName } = teachers[teacherHash] || {}
+
+				if (!teacherName) return undefined
+
+				return { shortSubjName, fullSubjName, teacherName }
+			}
+
+			const normalSubj = getNormalizedSubj(subjectHash)
+
+			if (!normalSubj) {
+				window.close();
+
+				//window.location.href = "index.html"
+			} else {
+				document.title = `Предмет (${normalSubj.shortSubjName})`
+
+				subjectElement.innerText = normalSubj.fullSubjName
+				teacherElement.innerHTML = `Предмет викладає: <strong>${normalSubj.teacherName}</strong>`
+			}
+		})
+	</script>
+</head>
+
+<body>
+	<div class="container">
+		<h1 id="subject">Для коректної роботи сайту потрібно увімкнути JavaScript!</h1>
+		<p id="teacher"></p>
+
+		<a class="black" href="javascript:MaybeBack()" onclick="MaybeBack()">Повернутися до <strong>дня</strong></a>
+	</div>
+
+</body>
+
+</html>

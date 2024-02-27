@@ -1,0 +1,68 @@
+<!-- Сторінка для тижня -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Розклад на конкретний день</title>
+	<link rel="icon" href="common/icon.png">
+	<link rel="stylesheet" href="styles/index.css">
+	<script src="javascript/globals.js"></script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			const params = new URLSearchParams(window.location.search);
+
+			const dayName = params.get('name') || undefined
+
+			const thatDay = schedule[dayName]
+
+			if (!thatDay) {
+				window.close();
+				//window.location.href = "index.html"
+			}
+
+			document.title = `Розклад на ${thatDay.name}`
+
+			const thatDayElement = document.getElementById("that-day")
+			const titleElement = document.getElementById("title")
+
+			if (!thatDay.subjects) {
+				titleElement.innerText = `Сьогодні немає предметів, можна спати`
+			} else {
+				const subjectsList = document.createElement('ul');
+				subjectsList.className = 'subjects';
+				subjectsList.id = 'container';
+
+				for (const subjName of thatDay.subjects) {
+					const subjElement = document.createElement('li')
+
+					const thatSubject = subjects[subjName]
+
+					const subjLink = document.createElement('a')
+					subjLink.href = `subject.html?subject=${subjName}`;
+					subjLink.target = '_blank';
+					subjLink.textContent = thatSubject.fullSubjName;
+
+					subjElement.appendChild(subjLink);
+
+					subjectsList.appendChild(subjElement);
+				}
+
+				titleElement.innerText = `Розклад на ${thatDay.name}`
+
+				thatDayElement.appendChild(subjectsList);
+			}
+		})
+	</script>
+</head>
+
+<body>
+	<div class="container">
+		<h1 id="title">Для коректної роботи сайту потрібно увімкнути JavaScript</h1>
+		<div id="that-day"></div>
+
+		<a class="black" href="javascript:MaybeBack()" onclick="MaybeBack()">Повернутися до <strong>вибору дня</strong></a>
+	</div>
+</body>
+
+</html>

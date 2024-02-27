@@ -1,0 +1,77 @@
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+}
+
+.container {
+	width: 80%;
+	margin: auto;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 0 10px #ddd;
+}
+
+h1 {
+	text-align: center;
+}
+
+.days {
+	list-style: none;
+	padding: 0;
+}
+
+.days li {
+	padding: 10px;
+	border: 1px solid #ddd;
+	margin-bottom: 10px;
+}
+
+.days li:hover {
+	background: #f2f2f2;
+	cursor: pointer;
+}
+
+.weekday {
+	font-weight: bold;
+}
+
+.weekend {
+	color: #888;
+}
+
+.subjects {
+	font-weight: bold;
+	list-style-type: none;
+	padding: 0;
+}
+
+.subjects li {
+	padding: 0;
+	margin: 0px;
+	counter-increment: list;
+}
+
+.subjects li::before {
+	content: counter(list) '. ';
+}
+
+.subjects li:hover {
+	cursor: pointer;
+}
+
+.subjects a {
+	color: #0066cc;
+	text-decoration: none;
+}
+
+.subjects a:hover {
+	text-decoration: underline;
+}
+
+.black {
+	color: black;
+}
+
+.bold {
+	font-weight: bold;
+}
